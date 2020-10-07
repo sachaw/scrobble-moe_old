@@ -1,30 +1,22 @@
-import { Suspense, useState } from "react"
+import { Suspense } from "react"
 import editServer from "app/servers/mutations/editServer"
-import { FaUser, FaKey } from "react-icons/fa"
+import { FaUser } from "react-icons/fa"
 import { UseGetServer } from "app/servers/hooks/useGetServer"
-
-import {
-  Button,
-  Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Stack,
-} from "@chakra-ui/core"
+import { Button, Heading, Input, InputGroup, InputLeftElement, Stack } from "@chakra-ui/core"
 import { useForm } from "react-hook-form"
-import { useParam } from "blitz"
+import { useParam, useMutation } from "blitz"
 
 type EditServerFormProps = {
   onSuccess?: () => void
 }
 
 export const EditServerForm = (props: EditServerFormProps) => {
+  const [editServerMutation] = useMutation(editServer)
   const id = useParam("id") as string
   const { register, handleSubmit, errors } = useForm()
 
   const onSubmit = async (data) => {
-    await editServer({
+    await editServerMutation({
       id,
       ip: data.ip,
       name: data.name,

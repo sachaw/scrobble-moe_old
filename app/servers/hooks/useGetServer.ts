@@ -1,4 +1,4 @@
-import { useParam, useQuery, useRouter } from "blitz"
+import { useParam, useQuery } from "blitz"
 import getServer from "app/servers/queries/getServer"
 
 export const UseGetServer = () => {

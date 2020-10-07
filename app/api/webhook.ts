@@ -4,7 +4,7 @@ import { payload } from "utils/webhookInterface"
 import { PrismaClient } from "@prisma/client"
 import { scrobble } from "utils/scrobblers/anilist"
 
-export default async (req: BlitzApiRequest, res: BlitzApiResponse) => {
+const webhook = async (req: BlitzApiRequest, res: BlitzApiResponse) => {
   const form = new IncomingForm()
   const payload = (await new Promise((resolve, reject) => {
     form.parse(req, (err, fields, _files) => {
@@ -70,3 +70,5 @@ export default async (req: BlitzApiRequest, res: BlitzApiResponse) => {
 
   return res.status(200).json({ data: "user or account not tracked" })
 }
+
+export default webhook

@@ -1,8 +1,5 @@
-import { Link, BlitzPage } from "blitz"
+import { BlitzPage } from "blitz"
 import Layout from "app/layouts/Layout"
-import logout from "app/auth/mutations/logout"
-import { useCurrentUser } from "app/hooks/useCurrentUser"
-import { Suspense } from "react"
 import { FaPen, FaTrash } from "react-icons/fa"
 import {
   VStack,
@@ -15,10 +12,6 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
-  Container,
-  Spacer,
-  Center,
-  Wrap,
 } from "@chakra-ui/core"
 
 function Scrobble({ title, desc, ...rest }) {

@@ -1,7 +1,5 @@
-import { Link, BlitzPage } from "blitz"
+import { BlitzPage } from "blitz"
 import Layout from "app/layouts/Layout"
-import logout from "app/auth/mutations/logout"
-import { Suspense } from "react"
 import { FaPen, FaTrash } from "react-icons/fa"
 import { VStack, Box, Heading, Text, Flex, Button } from "@chakra-ui/core"
 

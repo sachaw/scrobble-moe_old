@@ -1,26 +1,19 @@
-import { useState } from "react"
 import createServer from "app/servers/mutations/createServer"
-import { FaUser, FaKey } from "react-icons/fa"
-import {
-  Button,
-  Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Stack,
-} from "@chakra-ui/core"
+import { FaUser } from "react-icons/fa"
+import { Button, Heading, Input, InputGroup, InputLeftElement, Stack } from "@chakra-ui/core"
 import { useForm } from "react-hook-form"
+import { useMutation } from "blitz"
 
 type NewServerFormProps = {
   onSuccess?: () => void
 }
 
 export const NewServerForm = (props: NewServerFormProps) => {
+  const [createServerMutation] = useMutation(createServer)
   const { register, handleSubmit, errors } = useForm()
 
   const onSubmit = async (data) => {
-    await createServer({
+    await createServerMutation({
       ip: data.ip,
       name: data.name,
       uuid: data.uuid,

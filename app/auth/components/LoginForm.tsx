@@ -2,19 +2,16 @@ import { useState } from "react"
 import { Link as BlitzLink, useMutation } from "blitz"
 import login from "app/auth/mutations/login"
 import { FaUser, FaKey, FaLock, FaUnlock } from "react-icons/fa"
-import { LoginInput, LoginInputType } from "app/auth/validations"
 import {
   Button,
   Flex,
   FormControl,
   FormHelperText,
-  FormLabel,
   Heading,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  RequiredIndicator,
   Stack,
   Link,
   Tag,
