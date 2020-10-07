@@ -18,8 +18,8 @@ import { useCurrentUser } from "app/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import { Link as BlitzLink, useMutation, useRouter } from "blitz"
 
-const MenuItems = ({ children }) => (
-  <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
+const MenuItems = ({ children, mr = 6 }) => (
+  <Text mt={{ base: 4, md: 0 }} mr={mr} display="block">
     {children}
   </Text>
 )
@@ -62,11 +62,27 @@ const AuthHeader = () => {
         </Flex>
       </Box>
       <Box
-        display={{ base: showNav ? "block" : "none", md: "flex" }}
-        width={{ base: "full", md: "auto" }}
+        display={{ base: showNav ? "block" : "none", md: "none" }}
+        width={"full"}
         alignItems="center"
         flexGrow={1}
       >
+        <MenuItems mr={0}>
+          <Link as={BlitzLink} href="/servers">
+            <Button w="full" variant="outline">
+              Servers
+            </Button>
+          </Link>
+        </MenuItems>
+        <MenuItems mr={0}>
+          <Link as={BlitzLink} href="/accounts">
+            <Button w="full" variant="outline">
+              Account
+            </Button>
+          </Link>
+        </MenuItems>
+      </Box>
+      <Box display={{ base: "none", md: "flex" }} width={"auto"} alignItems="center" flexGrow={1}>
         <MenuItems>
           <Link as={BlitzLink} href="/servers">
             <Button variant="ghost">Servers</Button>
@@ -84,17 +100,20 @@ const AuthHeader = () => {
         alignItems="center"
         flexGrow={1}
       >
-        <MenuItems>
+        <MenuItems mr={0}>
           <Link as={BlitzLink} href="/account">
-            <Button variant="ghost">Account</Button>
+            <Button w="full" variant="outline">
+              Account
+            </Button>
           </Link>
         </MenuItems>
-        <MenuItems>
+        <MenuItems mr={0}>
           <Button
-            variant="ghost"
+            w="full"
+            variant="outline"
             onClick={async () => {
               await logoutMutation()
-              router.push("/dashboard")
+              router.push("/")
             }}
           >
             Logout
@@ -121,7 +140,7 @@ const AuthHeader = () => {
             <MenuItem
               onClick={async () => {
                 await logoutMutation()
-                router.push("/dashboard")
+                router.push("/")
               }}
             >
               Logout
