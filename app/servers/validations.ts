@@ -14,3 +14,8 @@ export const EditServerInput = z.object({
   uuid: z.string().optional(),
 })
 export type EditServerInputType = z.infer<typeof EditServerInput>
+
+export const RemoveServerInput = z.object({
+  id: z.string(),
+})
+export type RemoveServerInputType = z.infer<typeof RemoveServerInput>

@@ -1,7 +1,7 @@
-import { ReactNode } from "react"
-import { Head } from "blitz"
-import { Header } from "app/components/Header"
 import { Container } from "@chakra-ui/core"
+import { Header } from "app/components/Header"
+import { Head } from "blitz"
+import { ReactNode } from "react"
 
 type LayoutProps = {
   title?: string

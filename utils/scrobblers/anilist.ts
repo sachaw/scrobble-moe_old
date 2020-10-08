@@ -1,5 +1,5 @@
-import { GraphQLClient, gql } from 'graphql-request'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client"
+import { GraphQLClient, gql } from "graphql-request"
 
 const MEDIA_LIST_QUERY = gql`
   query MediaList($userId: Int!, $mediaId: Int!) {
@@ -29,19 +29,14 @@ const scrobble = async (
   userId: string,
   episode: number,
   accessToken: string,
-  prisma: PrismaClient,
+  prisma: PrismaClient
 ) => {
-  const graphQLClient = new GraphQLClient('https://graphql.anilist.co/', {
+  const graphQLClient = new GraphQLClient("https://graphql.anilist.co/", {
     headers: {
-      authorization: 'Bearer ' + accessToken,
+      authorization: "Bearer " + accessToken,
     },
   })
-  const scrobble = await createScrobble(
-    episode,
-    providerMediaId,
-    userId,
-    prisma,
-  )
+  const scrobble = await createScrobble(episode, providerMediaId, userId, prisma)
   const mediaListEntry = await graphQLClient
     .request(MEDIA_LIST_QUERY, { providerUserId, providerMediaId })
     .catch((error) => {
@@ -50,12 +45,12 @@ const scrobble = async (
   if (mediaListEntry?.MediaList.progress >= episode) {
     await createScrobbleInstance(
       scrobble.id,
-      'IGNORED',
-      'List progress equals or exceeds episode number',
-      prisma,
+      "IGNORED",
+      "List progress equals or exceeds episode number",
+      prisma
     )
     return {
-      error: 'List progress equals or exceeds episode number',
+      error: "List progress equals or exceeds episode number",
     }
   }
   await graphQLClient.request(MEDIA_UPDATE_MUTATION, {
@@ -63,15 +58,15 @@ const scrobble = async (
     progress: episode,
   })
 
-  await createScrobbleInstance(scrobble.id, 'SUCCESS', '', prisma)
-  return { data: 'ok' }
+  await createScrobbleInstance(scrobble.id, "SUCCESS", "", prisma)
+  return { data: "ok" }
 }
 
 const createScrobble = async (
   episode: number,
   providerMediaId: string,
   userId: string,
-  prisma: PrismaClient,
+  prisma: PrismaClient
 ) => {
   return await prisma.scrobbleItem.create({
     data: {
@@ -88,9 +83,9 @@ const createScrobble = async (
 
 const createScrobbleInstance = async (
   scrobbleItemId: string,
-  status: 'ERROR' | 'SUCCESS' | 'PENDING' | 'IGNORED',
+  status: "ERROR" | "SUCCESS" | "PENDING" | "IGNORED",
   statusReason: string,
-  prisma: PrismaClient,
+  prisma: PrismaClient
 ) => {
   return await prisma.scrobbleInstance.create({
     data: {

@@ -1,7 +1,3 @@
-import { useState } from "react"
-import { Link as BlitzLink, useMutation } from "blitz"
-import login from "app/auth/mutations/login"
-import { FaUser, FaKey, FaLock, FaUnlock } from "react-icons/fa"
 import {
   Button,
   Flex,
@@ -12,11 +8,15 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  Stack,
   Link,
+  Stack,
   Tag,
 } from "@chakra-ui/core"
+import login from "app/auth/mutations/login"
+import { Link as BlitzLink, useMutation } from "blitz"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { FaKey, FaLock, FaUnlock, FaUser } from "react-icons/fa"
 
 type LoginFormProps = {
   onSuccess?: () => void

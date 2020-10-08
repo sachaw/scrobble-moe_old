@@ -1,7 +1,7 @@
-import db from "db"
-import { Ctx } from "blitz"
 import { hashPassword } from "app/auth/auth-utils"
 import { RegisterInput, RegisterInputType } from "app/auth/validations"
+import { Ctx } from "blitz"
+import db from "db"
 
 export default async function register(input: RegisterInputType, ctx: Ctx) {
   // This throws an error if input is invalid

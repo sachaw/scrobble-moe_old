@@ -1,18 +1,18 @@
-import { BlitzPage } from "blitz"
-import Layout from "app/layouts/Layout"
-import { FaPen, FaTrash } from "react-icons/fa"
 import {
-  VStack,
   Box,
-  Heading,
-  Text,
-  Flex,
   Button,
+  Flex,
+  Heading,
   Stat,
+  StatHelpText,
   StatLabel,
   StatNumber,
-  StatHelpText,
+  Text,
+  VStack,
 } from "@chakra-ui/core"
+import Layout from "app/layouts/Layout"
+import { BlitzPage } from "blitz"
+import { FaPen, FaTrash } from "react-icons/fa"
 
 function Scrobble({ title, desc, ...rest }) {
   return (

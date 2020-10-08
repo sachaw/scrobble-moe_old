@@ -2,8 +2,8 @@ import {
   Box,
   Button,
   Flex,
-  Link,
   Heading,
+  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -12,11 +12,11 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/core"
-import { Suspense, useState } from "react"
-import { FaBars, FaChevronDown, FaUser, FaSun, FaMoon } from "react-icons/fa"
-import { useCurrentUser } from "app/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
-import { Link as BlitzLink, useMutation, useRouter } from "blitz"
+import getCurrentUser from "app/users/queries/getCurrentUser"
+import { Link as BlitzLink, useMutation, useQuery, useRouter } from "blitz"
+import { Suspense, useState } from "react"
+import { FaBars, FaChevronDown, FaMoon, FaSun, FaUser } from "react-icons/fa"
 
 const MenuItems = ({ children, mr = 6 }) => (
   <Text mt={{ base: 4, md: 0 }} mr={mr} display="block">
@@ -30,7 +30,7 @@ const AuthHeader = () => {
   const [showUser, setShowUser] = useState(false)
   const { colorMode, toggleColorMode } = useColorMode()
   const router = useRouter()
-  const currentUser = useCurrentUser()
+  const [currentUser] = useQuery(getCurrentUser, null)
   const handleToggleNav = () => {
     setShowUser(false)
     setShowNav(!showNav)
@@ -136,7 +136,10 @@ const AuthHeader = () => {
             {currentUser.username}
           </MenuButton>
           <MenuList>
-            <MenuItem>Account</MenuItem>
+            <Link as={BlitzLink} href="/account">
+              <MenuItem>Account</MenuItem>
+            </Link>
+
             <MenuItem
               onClick={async () => {
                 await logoutMutation()

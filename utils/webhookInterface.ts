@@ -1,17 +1,17 @@
 export interface payload {
   event:
-    | 'library.on.deck'
-    | 'library.new'
-    | 'media.pause'
-    | 'media.play'
-    | 'media.rate'
-    | 'media.resume'
-    | 'media.scrobble'
-    | 'media.stop'
-    | 'admin.database.backup'
-    | 'admin.database.corrupted'
-    | 'device.new'
-    | 'playback.started'
+    | "library.on.deck"
+    | "library.new"
+    | "media.pause"
+    | "media.play"
+    | "media.rate"
+    | "media.resume"
+    | "media.scrobble"
+    | "media.stop"
+    | "admin.database.backup"
+    | "admin.database.corrupted"
+    | "device.new"
+    | "playback.started"
   user: boolean
   owner: boolean
   Account: {
@@ -30,21 +30,21 @@ export interface payload {
     uuid: string
   }
   Metadata: {
-    librarySectionType: 'show'
+    librarySectionType: "show"
     ratingKey: string
     key: string
     parentRatingKey?: string
     skipParent?: boolean
-    grandparentRatingKey: '131'
+    grandparentRatingKey: "131"
     guid: string
     studio?: string
     parentGuid: string
     grandparentGuid: string
-    type: 'episode'
+    type: "episode"
     title: string
     grandparentTitle: string
     parentTitle: string
-    contentRating: 'R'
+    contentRating: "R"
     summary: string
     audienceRating: number
     viewOffset: number

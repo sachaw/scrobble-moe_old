@@ -1,5 +1,5 @@
+import { AuthorizationError, Ctx, NotFoundError } from "blitz"
 import db, { FindOnePlexServerArgs } from "db"
-import { Ctx, NotFoundError, AuthorizationError } from "blitz"
 
 type GetServerInput = {
   where: FindOnePlexServerArgs["where"]

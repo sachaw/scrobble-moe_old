@@ -1,6 +1,6 @@
-import db from "db"
 import { EditServerInput, EditServerInputType } from "app/servers/validations"
 import { Ctx } from "blitz"
+import db from "db"
 
 export default async function editServer(input: EditServerInputType, ctx: Ctx) {
   ctx.session.authorize()

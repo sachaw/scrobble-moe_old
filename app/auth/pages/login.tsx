@@ -1,8 +1,8 @@
-import React from "react"
-import { useRouter, BlitzPage } from "blitz"
-import Layout from "app/layouts/Layout"
-import { LoginForm } from "app/auth/components/LoginForm"
 import { Box } from "@chakra-ui/core"
+import { LoginForm } from "app/auth/components/LoginForm"
+import Layout from "app/layouts/Layout"
+import { BlitzPage, useRouter } from "blitz"
+import React from "react"
 
 const LoginPage: BlitzPage = () => {
   const router = useRouter()

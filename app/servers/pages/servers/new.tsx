@@ -1,8 +1,8 @@
-import React from "react"
-import { useRouter, BlitzPage } from "blitz"
+import { Box } from "@chakra-ui/core"
 import Layout from "app/layouts/Layout"
 import { NewServerForm } from "app/servers/components/NewServerForm"
-import { Box } from "@chakra-ui/core"
+import { BlitzPage, useRouter } from "blitz"
+import React from "react"
 
 const NewServerPage: BlitzPage = () => {
   const router = useRouter()

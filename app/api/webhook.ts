@@ -1,8 +1,8 @@
+import { PrismaClient } from "@prisma/client"
 import { BlitzApiRequest, BlitzApiResponse } from "blitz"
 import { IncomingForm } from "formidable"
-import { payload } from "utils/webhookInterface"
-import { PrismaClient } from "@prisma/client"
 import { scrobble } from "utils/scrobblers/anilist"
+import { payload } from "utils/webhookInterface"
 
 const webhook = async (req: BlitzApiRequest, res: BlitzApiResponse) => {
   const form = new IncomingForm()

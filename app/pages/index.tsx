@@ -1,5 +1,5 @@
-import { BlitzPage } from "blitz"
 import Layout from "app/layouts/Layout"
+import { BlitzPage } from "blitz"
 const Home: BlitzPage = () => {
   return <h1>Landing</h1>
 }

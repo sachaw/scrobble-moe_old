@@ -1,7 +1,7 @@
-import { BlitzPage } from "blitz"
+import { Box, Button, Flex, Heading, Text, VStack } from "@chakra-ui/core"
 import Layout from "app/layouts/Layout"
+import { BlitzPage } from "blitz"
 import { FaPen, FaTrash } from "react-icons/fa"
-import { VStack, Box, Heading, Text, Flex, Button } from "@chakra-ui/core"
 
 function Account({ title, desc, ...rest }) {
   return (

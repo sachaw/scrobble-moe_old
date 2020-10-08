@@ -1,22 +1,22 @@
-import React, { useState } from "react"
-import register from "app/auth/mutations/register"
 import {
   Button,
   Flex,
+  FormControl,
+  FormHelperText,
   Heading,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Link,
   Stack,
   Tag,
-  Link,
-  FormHelperText,
-  FormControl,
 } from "@chakra-ui/core"
-import { FaKey, FaLock, FaUnlock, FaUser } from "react-icons/fa"
+import register from "app/auth/mutations/register"
 import { Link as BlitzLink, useMutation } from "blitz"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
+import { FaKey, FaLock, FaUnlock, FaUser } from "react-icons/fa"
 
 type RegisterFormProps = {
   onSuccess?: () => void

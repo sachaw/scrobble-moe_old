@@ -1,6 +1,6 @@
 import { AuthenticationError, NotFoundError } from "blitz"
-import SecurePassword from "secure-password"
 import db from "db"
+import SecurePassword from "secure-password"
 
 const SP = new SecurePassword()
 
