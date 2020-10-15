@@ -82,7 +82,13 @@ const AuthHeader = () => {
           </Link>
         </MenuItems>
       </Box>
-      <Box display={{ base: "none", md: "flex" }} width={"auto"} alignItems="center" flexGrow={1}>
+      <Box
+        ml={{ md: "6" }}
+        display={{ base: "none", md: "flex" }}
+        width={"auto"}
+        alignItems="center"
+        flexGrow={1}
+      >
         <MenuItems>
           <Link as={BlitzLink} href="/servers">
             <Button variant="ghost">Servers</Button>
@@ -90,7 +96,7 @@ const AuthHeader = () => {
         </MenuItems>
         <MenuItems>
           <Link as={BlitzLink} href="/accounts">
-            <Button variant="ghost">Account</Button>
+            <Button variant="ghost">Accounts</Button>
           </Link>
         </MenuItems>
       </Box>
@@ -103,7 +109,7 @@ const AuthHeader = () => {
         <MenuItems mr={0}>
           <Link as={BlitzLink} href="/account">
             <Button w="full" variant="outline">
-              Account
+              Accounts
             </Button>
           </Link>
         </MenuItems>

@@ -1,34 +1,34 @@
 import { Box, Button, Flex, Heading, Link, Skeleton, Stack, Text, VStack } from "@chakra-ui/core"
+import removeLinkedAccount from "app/accounts/mutations/removeLinkedAccount"
+import getUsersAccounts from "app/accounts/queries/getUsersAccounts"
 import Layout from "app/layouts/Layout"
-import removeServer from "app/servers/mutations/removeServer"
-import getUsersServers from "app/servers/queries/getUsersServers"
 import { Link as BlitzLink, BlitzPage, invoke, useQuery } from "blitz"
 import { Suspense } from "react"
-import { FaPen, FaTrash } from "react-icons/fa"
-import { FaLayerGroup } from "react-icons/fa"
+import { FaLayerGroup, FaPen, FaTrash } from "react-icons/fa"
 
-function ServerCards() {
-  const [servers, { refetch }] = useQuery(getUsersServers, null)
+function AccountCards() {
+  const [accounts, { refetch }] = useQuery(getUsersAccounts, null)
+  console.log(process.env.ANILIST_CLIENT_URL)
 
   return (
     <VStack spacing={4} align="stretch">
-      {servers?.map((server) => (
+      {accounts?.map((account) => (
         <Box p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
           <Flex justify="space-between">
             <Box userSelect="none">
-              <Heading fontSize="xl">{server.name}</Heading>
-              <Text mt={4}>{server.uuid.slice(0, 20) + "..."}</Text>
+              <Heading fontSize="xl">{account.service}</Heading>
+              <Text mt={4}>{account.userId}</Text>
             </Box>
             <Box my="auto">
-              <Link as={BlitzLink} href={"/servers/edit/" + server.id}>
+              <Link as={BlitzLink} href={"/servers/edit/" + account.id}>
                 <Button mr={2} variant="ghost">
                   <FaPen />
                 </Button>
               </Link>
               <Button
                 onClick={async () => {
-                  await invoke(removeServer, {
-                    id: server.id,
+                  await invoke(removeLinkedAccount, {
+                    id: account.id,
                   })
                   refetch()
                 }}
@@ -40,10 +40,10 @@ function ServerCards() {
           </Flex>
         </Box>
       ))}
-      {!servers.length && (
+      {!accounts.length && (
         <Box userSelect={"none"} p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
           <Heading m={"auto"} letterSpacing={"-.1rem"} as="h3" size="lg">
-            No Servers.
+            No Linked Accounts.
           </Heading>
         </Box>
       )}
@@ -52,8 +52,19 @@ function ServerCards() {
           <Box m={"auto"}>
             <FaLayerGroup size={70} />
           </Box>
-          <Link as={BlitzLink} href="/servers/new">
-            <Button variant="ghost">Add Server</Button>
+          <Link
+            textDecoration={"none"}
+            w="100%"
+            href={
+              "https://anilist.co/api/v2/oauth/authorize?client_id=" +
+              process.env.ANILIST_CLIENT_ID +
+              "&redirect_uri=" +
+              process.env.ANILIST_CLIENT_URL +
+              "&response_type=code"
+            }
+            target="_blank"
+          >
+            <Button variant="ghost">Link AniList</Button>
           </Link>
         </Stack>
       </Box>
@@ -61,14 +72,14 @@ function ServerCards() {
   )
 }
 
-const Servers: BlitzPage = () => {
+const AccountsPage: BlitzPage = () => {
   return (
     <Suspense fallback={<Skeleton height="20px" />}>
-      <ServerCards />
+      <AccountCards />
     </Suspense>
   )
 }
 
-Servers.getLayout = (page) => <Layout title="Servers">{page}</Layout>
+AccountsPage.getLayout = (page) => <Layout title="Accounts">{page}</Layout>
 
-export default Servers
+export default AccountsPage

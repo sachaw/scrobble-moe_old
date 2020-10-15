@@ -1,4 +1,4 @@
-import { DefaultCtx, SessionContext, DefaultPublicData } from "blitz"
+import { DefaultCtx, DefaultPublicData, SessionContext } from "blitz"
 import { User } from "db"
 
 declare module "blitz" {

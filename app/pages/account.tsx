@@ -4,7 +4,7 @@ import { BlitzPage } from "blitz"
 import { FaPen, FaTrash } from "react-icons/fa"
 
 const Account: BlitzPage = () => {
-  return <p>Account</p>
+  return <p>Account page</p>
 }
 
 Account.getLayout = (page) => <Layout title="Account">{page}</Layout>

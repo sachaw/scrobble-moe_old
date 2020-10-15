@@ -34,13 +34,22 @@
     ]
   },
   "dependencies": {
+    "@blitzjs/display": "0.24.2",
     "@chakra-ui/core": "1.0.0-rc.5",
+    "@frameworkless/bodyparser": "1.0.1",
     "@prisma/cli": "2.8.0",
     "@prisma/client": "2.8.0",
-    "blitz": "0.24.0-canary.1",
+    "@ssttevee/multipart-parser": "0.1.8",
+    "axios": "0.20.0",
+    "blitz": "0.24.2",
     "formidable": "1.2.2",
+    "graphql": "15.3.0",
     "graphql-request": "3.1.0",
+    "jsonwebtoken": "8.5.1",
+    "multiparty": "4.2.2",
     "next-pwa": "3.1.5",
+    "next-transpile-modules": "4.1.0",
+    "parse-multipart": "1.0.4",
     "react": "0.0.0-experimental-7f28234f8",
     "react-dom": "0.0.0-experimental-7f28234f8",
     "react-error-boundary": "2.3.2",
@@ -50,6 +59,9 @@
     "zod": "1.11.9"
   },
   "devDependencies": {
+    "@types/formidable": "1.0.31",
+    "@types/jsonwebtoken": "8.5.0",
+    "@types/multiparty": "0.0.32",
     "@types/react": "16.9.50",
     "@types/secure-password": "3.1.0",
     "@typescript-eslint/eslint-plugin": "4.3.0",
