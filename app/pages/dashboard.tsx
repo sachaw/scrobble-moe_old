@@ -7,7 +7,7 @@ import { BlitzPage, useQuery } from "blitz"
 import { Suspense, useState } from "react"
 import { FaCaretDown, FaCaretUp, FaCheck, FaSync } from "react-icons/fa"
 
-const Test = (
+const Scrobble = (
   scrobble: ScrobbleItem & {
     attempts: ScrobbleInstance[]
   }
@@ -48,7 +48,7 @@ function ScrobbleCards() {
   return (
     <VStack spacing={4} align="stretch">
       {scrobbles?.map((scrobble) => (
-        <Test key={scrobble.id} {...scrobble} />
+        <Scrobble key={scrobble.id} {...scrobble} />
       ))}
       {!scrobbles.length && (
         <Card>

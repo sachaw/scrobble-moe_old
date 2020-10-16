@@ -1,24 +1,19 @@
-import { Button } from "@chakra-ui/core"
+import { Button, Flex, Spinner } from "@chakra-ui/core"
 import linkAnilistMutation from "app/accounts/mutations/linkAnilist"
-import { BlitzPage, invoke, useMutation } from "blitz"
+import { BlitzPage, invoke } from "blitz"
 import { useRouterQuery } from "blitz"
 const LinkAnilist: BlitzPage = () => {
   const query = useRouterQuery()
+  invoke(linkAnilistMutation, {
+    token: query.code as string,
+  }).then(() => {
+    window.close()
+  })
 
-  //   const [linkAniList] = useMutation(linkAnilistMutation)
-  //   linkAniList(query.code as string)
   return (
-    <Button
-      onClick={async () => {
-        await invoke(linkAnilistMutation, {
-          token: query.code as string,
-        })
-        window.close()
-      }}
-      variant="ghost"
-    >
-      Send
-    </Button>
+    <Flex justify={"space-around"} h="100vh">
+      <Spinner m={"auto"} size="xl" />
+    </Flex>
   )
 }
 

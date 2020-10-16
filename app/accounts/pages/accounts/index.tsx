@@ -14,7 +14,7 @@ function AccountCards() {
   return (
     <VStack spacing={4} align="stretch">
       {accounts?.map((account) => (
-        <Card>
+        <Card key={account.id}>
           <Flex justify="space-between">
             <Box userSelect="none">
               <Heading fontSize="xl">{account.service}</Heading>

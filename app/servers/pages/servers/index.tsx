@@ -26,7 +26,7 @@ function ServerCards() {
     <SimpleGrid minChildWidth="320px" spacing={4}>
       <VStack spacing={4} align="stretch">
         {servers?.map((server) => (
-          <Card>
+          <Card key={server.id}>
             <Flex justify="space-between">
               <Box userSelect="none">
                 <Heading fontSize="xl">{server.name}</Heading>
