@@ -1,3 +1,4 @@
+import { ColorModeScript } from "@chakra-ui/core"
 import { BlitzScript, Document, DocumentHead, Html, Main } from "blitz"
 
 class MyDocument extends Document {
@@ -12,6 +13,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <DocumentHead />
         <body>
+          <ColorModeScript initialColorMode="light" />
           <Main />
           <BlitzScript />
         </body>

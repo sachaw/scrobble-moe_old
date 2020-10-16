@@ -2,7 +2,6 @@ import {
   Button,
   Flex,
   FormControl,
-  FormHelperText,
   Heading,
   Input,
   InputGroup,
@@ -37,6 +36,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
     try {
       await registerMutation({
         username: data.username,
+        plexUsername: data.plexUsername,
         password: data.password,
       })
       props.onSuccess && props.onSuccess()
@@ -65,11 +65,10 @@ export const RegisterForm = (props: RegisterFormProps) => {
           </Flex>
         </Flex>
 
-        <FormControl isRequired>
+        <FormControl isInvalid={!!errors.username} isRequired>
           <InputGroup>
             <InputLeftElement pointerEvents="none" children={<FaUser />} />
             <Input
-              isInvalid={!!errors.username}
               errorBorderColor="crimson"
               name="username"
               placeholder="Username"
@@ -81,14 +80,29 @@ export const RegisterForm = (props: RegisterFormProps) => {
               })}
             />
           </InputGroup>
-          {errors.username && <FormHelperText color="crimson">Invalid username</FormHelperText>}
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl isInvalid={!!errors.plexUsername} isRequired>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none" children={<FaUser />} />
+            <Input
+              errorBorderColor="crimson"
+              name="plexUsername"
+              placeholder="Plex Username"
+              type="text"
+              ref={registerForm({
+                required: true,
+                maxLength: 20,
+                minLength: 3,
+              })}
+            />
+          </InputGroup>
+        </FormControl>
+
+        <FormControl isInvalid={!!errors.password} isRequired>
           <InputGroup>
             <InputLeftElement children={<FaKey />} />
             <Input
-              isInvalid={!!errors.password}
               errorBorderColor="crimson"
               name="password"
               placeholder="Password"
@@ -107,7 +121,6 @@ export const RegisterForm = (props: RegisterFormProps) => {
               }
             />
           </InputGroup>
-          {errors.password && <FormHelperText color="crimson">Invalid password</FormHelperText>}
         </FormControl>
         <Button type="submit" isLoading={loading} loadingText="Loading">
           Submit

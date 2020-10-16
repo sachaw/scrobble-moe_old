@@ -74,8 +74,6 @@ export const NewServerForm = (props: NewServerFormProps) => {
               type="text"
               ref={register({
                 required: true,
-                maxLength: 18,
-                minLength: 7,
               })}
             />
           </InputGroup>

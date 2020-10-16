@@ -8,6 +8,7 @@ export type LoginInputType = z.infer<typeof LoginInput>
 
 export const RegisterInput = z.object({
   username: z.string(),
+  plexUsername: z.string(),
   password: z.string(),
 })
 export type RegisterInputType = z.infer<typeof RegisterInput>

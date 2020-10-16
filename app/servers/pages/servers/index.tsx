@@ -1,4 +1,16 @@
-import { Box, Button, Flex, Heading, Link, Skeleton, Stack, Text, VStack } from "@chakra-ui/core"
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Link,
+  SimpleGrid,
+  Skeleton,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/core"
+import { Card } from "app/components/Card"
 import Layout from "app/layouts/Layout"
 import removeServer from "app/servers/mutations/removeServer"
 import getUsersServers from "app/servers/queries/getUsersServers"
@@ -11,53 +23,56 @@ function ServerCards() {
   const [servers, { refetch }] = useQuery(getUsersServers, null)
 
   return (
-    <VStack spacing={4} align="stretch">
-      {servers?.map((server) => (
-        <Box p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
-          <Flex justify="space-between">
-            <Box userSelect="none">
-              <Heading fontSize="xl">{server.name}</Heading>
-              <Text mt={4}>{server.uuid.slice(0, 20) + "..."}</Text>
-            </Box>
-            <Box my="auto">
-              <Link as={BlitzLink} href={"/servers/edit/" + server.id}>
-                <Button mr={2} variant="ghost">
-                  <FaPen />
+    <SimpleGrid minChildWidth="320px" spacing={4}>
+      <VStack spacing={4} align="stretch">
+        {servers?.map((server) => (
+          <Card>
+            <Flex justify="space-between">
+              <Box userSelect="none">
+                <Heading fontSize="xl">{server.name}</Heading>
+                <Text mt={4}>{server.uuid.slice(0, 20) + "..."}</Text>
+              </Box>
+              <Box my="auto">
+                <Link as={BlitzLink} href={"/servers/edit/" + server.id}>
+                  <Button mr={2} variant="ghost">
+                    <FaPen />
+                  </Button>
+                </Link>
+                <Button
+                  onClick={async () => {
+                    await invoke(removeServer, {
+                      id: server.id,
+                    })
+                    refetch()
+                  }}
+                  variant="ghost"
+                >
+                  <FaTrash />
                 </Button>
-              </Link>
-              <Button
-                onClick={async () => {
-                  await invoke(removeServer, {
-                    id: server.id,
-                  })
-                  refetch()
-                }}
-                variant="ghost"
-              >
-                <FaTrash />
-              </Button>
+              </Box>
+            </Flex>
+          </Card>
+        ))}
+        {!servers.length && (
+          <Card>
+            <Heading m={"auto"} letterSpacing={"-.1rem"} as="h3" size="lg">
+              No Servers.
+            </Heading>
+          </Card>
+        )}
+        <Card>
+          <Stack spacing={4}>
+            <Box m={"auto"}>
+              <FaLayerGroup size={70} />
             </Box>
-          </Flex>
-        </Box>
-      ))}
-      {!servers.length && (
-        <Box userSelect={"none"} p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
-          <Heading m={"auto"} letterSpacing={"-.1rem"} as="h3" size="lg">
-            No Servers.
-          </Heading>
-        </Box>
-      )}
-      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
-        <Stack spacing={4}>
-          <Box m={"auto"}>
-            <FaLayerGroup size={70} />
-          </Box>
-          <Link as={BlitzLink} href="/servers/new">
-            <Button variant="ghost">Add Server</Button>
-          </Link>
-        </Stack>
-      </Box>
-    </VStack>
+            <Link as={BlitzLink} href="/servers/new">
+              <Button variant="ghost">Add Server</Button>
+            </Link>
+          </Stack>
+        </Card>
+      </VStack>
+      <Box>test</Box>
+    </SimpleGrid>
   )
 }
 

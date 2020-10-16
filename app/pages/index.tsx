@@ -1,7 +1,8 @@
+import Landing from "app/components/Landing"
 import Layout from "app/layouts/Layout"
 import { BlitzPage } from "blitz"
 const Home: BlitzPage = () => {
-  return <h1>Landing</h1>
+  return <Landing />
 }
 
 Home.getLayout = (page) => <Layout title="Home">{page}</Layout>

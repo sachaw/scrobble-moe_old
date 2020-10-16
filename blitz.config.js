@@ -1,5 +1,5 @@
 const { sessionMiddleware, unstable_simpleRolesIsAuthorized } = require("@blitzjs/server")
-const withPWA = require('next-pwa')
+// const withPWA = require('next-pwa')
 
 // module.exports = withPWA({
   module.exports = {
@@ -10,7 +10,7 @@ const withPWA = require('next-pwa')
   ],
   env: {
     ANILIST_CLIENT_ID: process.env.ANILIST_CLIENT_ID,
-    ANILIST_REDIRECT_URL: process.env.ANILIST_CLIENT_URL
+    ANILIST_CLIENT_URL: process.env.ANILIST_CLIENT_URL
   },
   /* Uncomment this to customize the webpack config
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {

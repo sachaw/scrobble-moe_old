@@ -5,11 +5,16 @@ import db from "db"
 
 export default async function register(input: RegisterInputType, ctx: Ctx) {
   // This throws an error if input is invalid
-  const { username, password } = RegisterInput.parse(input)
+  const { username, plexUsername, password } = RegisterInput.parse(input)
 
   const hashedPassword = await hashPassword(password)
+
+  const userExists = db.user.findOne({ where: { username } })
+
+  if (userExists) throw new Error("User already exists")
+
   const user = await db.user.create({
-    data: { username, password: hashedPassword, role: "user" },
+    data: { username, plexUsername, password: hashedPassword, role: "user" },
     select: { id: true, username: true, role: true },
   })
 

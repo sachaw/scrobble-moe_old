@@ -51,7 +51,7 @@ const AuthHeader = () => {
       <Box display={{ base: "block", md: "none" }}>
         <Flex>
           <Button mr={2} variant="ghost" onClick={toggleColorMode}>
-            {colorMode === "light" ? <FaMoon /> : <FaSun />}
+            {colorMode === "light" ? <FaSun /> : <FaMoon />}
           </Button>
           <Button mr={2} variant="ghost" onClick={handleToggleUser}>
             <FaUser />
@@ -129,7 +129,7 @@ const AuthHeader = () => {
 
       <Box display={{ base: "none", md: "block" }} mt={{ base: 4, md: 0 }}>
         <Button mr={2} variant="ghost" onClick={toggleColorMode}>
-          {colorMode === "light" ? <FaMoon /> : <FaSun />}
+          {colorMode === "light" ? <FaSun /> : <FaMoon />}
         </Button>
 
         <Menu>
@@ -169,10 +169,10 @@ const AuthHeader = () => {
       </Link>
       <span>
         <Button mr={2} variant="ghost" onClick={toggleColorMode}>
-          {colorMode === "light" ? <FaMoon /> : <FaSun />}
+          {colorMode === "light" ? <FaSun /> : <FaMoon />}
         </Button>
         <Link as={BlitzLink} href="/login">
-          <Button>Login / Register</Button>
+          <Button>Login</Button>
         </Link>
       </span>
     </>

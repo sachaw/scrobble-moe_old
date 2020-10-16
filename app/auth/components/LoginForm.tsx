@@ -2,7 +2,6 @@ import {
   Button,
   Flex,
   FormControl,
-  FormHelperText,
   Heading,
   Input,
   InputGroup,
@@ -65,11 +64,10 @@ export const LoginForm = (props: LoginFormProps) => {
           </Flex>
         </Flex>
 
-        <FormControl isRequired>
+        <FormControl isInvalid={!!errors.username} isRequired>
           <InputGroup>
             <InputLeftElement pointerEvents="none" children={<FaUser />} />
             <Input
-              isInvalid={!!errors.username}
               errorBorderColor="crimson"
               name="username"
               placeholder="Username"
@@ -81,14 +79,12 @@ export const LoginForm = (props: LoginFormProps) => {
               })}
             />
           </InputGroup>
-          {errors.username && <FormHelperText color="crimson">Invalid username</FormHelperText>}
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl isInvalid={!!errors.password} isRequired>
           <InputGroup>
             <InputLeftElement children={<FaKey />} />
             <Input
-              isInvalid={!!errors.password}
               errorBorderColor="crimson"
               name="password"
               placeholder="Password"
@@ -107,7 +103,6 @@ export const LoginForm = (props: LoginFormProps) => {
               }
             />
           </InputGroup>
-          {errors.password && <FormHelperText color="crimson">Invalid password</FormHelperText>}
         </FormControl>
         <Button type="submit" isLoading={loading} loadingText="Loading">
           Submit

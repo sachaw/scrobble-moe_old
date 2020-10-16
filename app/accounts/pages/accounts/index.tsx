@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Heading, Link, Skeleton, Stack, Text, VStack } from "@chakra-ui/core"
 import removeLinkedAccount from "app/accounts/mutations/removeLinkedAccount"
 import getUsersAccounts from "app/accounts/queries/getUsersAccounts"
+import { Card } from "app/components/Card"
 import Layout from "app/layouts/Layout"
 import { Link as BlitzLink, BlitzPage, invoke, useQuery } from "blitz"
 import { Suspense } from "react"
@@ -13,7 +14,7 @@ function AccountCards() {
   return (
     <VStack spacing={4} align="stretch">
       {accounts?.map((account) => (
-        <Box p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
+        <Card>
           <Flex justify="space-between">
             <Box userSelect="none">
               <Heading fontSize="xl">{account.service}</Heading>
@@ -38,16 +39,16 @@ function AccountCards() {
               </Button>
             </Box>
           </Flex>
-        </Box>
+        </Card>
       ))}
       {!accounts.length && (
-        <Box userSelect={"none"} p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
+        <Card>
           <Heading m={"auto"} letterSpacing={"-.1rem"} as="h3" size="lg">
             No Linked Accounts.
           </Heading>
-        </Box>
+        </Card>
       )}
-      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
+      <Card>
         <Stack spacing={4}>
           <Box m={"auto"}>
             <FaLayerGroup size={70} />
@@ -67,7 +68,7 @@ function AccountCards() {
             <Button variant="ghost">Link AniList</Button>
           </Link>
         </Stack>
-      </Box>
+      </Card>
     </VStack>
   )
 }

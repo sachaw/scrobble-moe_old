@@ -1,14 +1,13 @@
-import { Box, Button, Flex, Heading, Link, Skeleton, Stack, Text, VStack } from "@chakra-ui/core"
+import { Box, Button, Flex, Heading, Skeleton, Text, VStack } from "@chakra-ui/core"
 import { ScrobbleInstance, ScrobbleItem } from "@prisma/client"
+import { Card } from "app/components/Card"
 import Layout from "app/layouts/Layout"
 import getUsersScrobbles from "app/scrobbles/queries/getUsersScrobbles"
-import removeServer from "app/servers/mutations/removeServer"
-import { Link as BlitzLink, BlitzPage, invoke, useQuery } from "blitz"
+import { BlitzPage, useQuery } from "blitz"
 import { Suspense, useState } from "react"
 import { FaCaretDown, FaCaretUp, FaCheck, FaSync } from "react-icons/fa"
-import { FaLayerGroup } from "react-icons/fa"
 
-const Card = (
+const Test = (
   scrobble: ScrobbleItem & {
     attempts: ScrobbleInstance[]
   }
@@ -17,7 +16,7 @@ const Card = (
   const toggleShowAttempt = () => setShowAttempt(!showAttempt)
 
   return (
-    <Box p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
+    <Card>
       <Flex justify="space-between">
         <Box userSelect="none">
           <Heading fontSize="xl">{scrobble.providerMediaId}</Heading>
@@ -39,35 +38,25 @@ const Card = (
         </Box>
       </Flex>
       {showAttempt && <p>test</p>}
-    </Box>
+    </Card>
   )
 }
 
 function ScrobbleCards() {
-  const [scrobbles, { refetch }] = useQuery(getUsersScrobbles, null)
+  const [scrobbles] = useQuery(getUsersScrobbles, null)
 
   return (
     <VStack spacing={4} align="stretch">
       {scrobbles?.map((scrobble) => (
-        <Card key={scrobble.id} {...scrobble} />
+        <Test key={scrobble.id} {...scrobble} />
       ))}
       {!scrobbles.length && (
-        <Box userSelect={"none"} p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
+        <Card>
           <Heading m={"auto"} letterSpacing={"-.1rem"} as="h3" size="lg">
-            No Servers.
+            No Scrobbles.
           </Heading>
-        </Box>
+        </Card>
       )}
-      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
-        <Stack spacing={4}>
-          <Box m={"auto"}>
-            <FaLayerGroup size={70} />
-          </Box>
-          <Link as={BlitzLink} href="/servers/new">
-            <Button variant="ghost">Add Server</Button>
-          </Link>
-        </Stack>
-      </Box>
     </VStack>
   )
 }

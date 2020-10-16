@@ -1,5 +1,6 @@
-import { Box } from "@chakra-ui/core"
+import { Container } from "@chakra-ui/core"
 import { LoginForm } from "app/auth/components/LoginForm"
+import { Card } from "app/components/Card"
 import Layout from "app/layouts/Layout"
 import { BlitzPage, useRouter } from "blitz"
 import React from "react"
@@ -8,9 +9,11 @@ const LoginPage: BlitzPage = () => {
   const router = useRouter()
 
   return (
-    <Box p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
-      <LoginForm onSuccess={() => router.push("/dashboard")} />
-    </Box>
+    <Container>
+      <Card>
+        <LoginForm onSuccess={() => router.push("/dashboard")} />
+      </Card>
+    </Container>
   )
 }
 

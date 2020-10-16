@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/core"
+import { Card } from "app/components/Card"
 import Layout from "app/layouts/Layout"
 import { NewServerForm } from "app/servers/components/NewServerForm"
 import { BlitzPage, useRouter } from "blitz"
@@ -8,9 +8,9 @@ const NewServerPage: BlitzPage = () => {
   const router = useRouter()
 
   return (
-    <Box p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
+    <Card>
       <NewServerForm onSuccess={() => router.push("/servers")} />
-    </Box>
+    </Card>
   )
 }
 
