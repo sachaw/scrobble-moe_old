@@ -1,5 +1,3 @@
-import "app/App.css"
-
 import { ChakraProvider } from "@chakra-ui/core"
 import LoginForm from "app/auth/components/LoginForm"
 import { AppProps, ErrorComponent, useRouter } from "blitz"

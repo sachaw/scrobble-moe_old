@@ -11,8 +11,6 @@ export default function Landing() {
       direction={{ base: "column-reverse", md: "row" }}
       wrap="nowrap"
       minH="70vh"
-      px={8}
-      mb={16}
     >
       <Stack
         spacing={4}
