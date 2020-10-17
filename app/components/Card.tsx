@@ -3,9 +3,10 @@ import { Box, Flex, Img, Spinner } from "@chakra-ui/core"
 interface cardProps {
   children: any
   img?: string
+  justify?: boolean
 }
 
-export function Card({ children, img }: cardProps) {
+export function Card({ children, img, justify = false }: cardProps) {
   return (
     <Box
       userSelect="none"
@@ -15,7 +16,7 @@ export function Card({ children, img }: cardProps) {
       borderRadius="lg"
       backgroundColor={"gray.900"}
     >
-      <Flex>
+      <Flex justify={justify ? "space-between" : undefined}>
         {img && <Img h={{ base: 32, md: 40 }} m={-5} borderLeftRadius="lg" src={img} />}
         {children}
       </Flex>

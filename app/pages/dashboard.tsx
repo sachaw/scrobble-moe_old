@@ -8,6 +8,7 @@ import {
   List,
   ListIcon,
   ListItem,
+  Progress,
   Skeleton,
   Spinner,
   Stack,
@@ -22,7 +23,8 @@ import getUsersScrobbles from "app/scrobbles/queries/getUsersScrobbles"
 import { BlitzPage, useQuery } from "blitz"
 import { GraphQLClient, gql } from "graphql-request"
 import { Suspense, useEffect, useState } from "react"
-import { FaCaretDown, FaCaretUp, FaCheck, FaCross, FaSync } from "react-icons/fa"
+import { FaCaretDown, FaCaretUp, FaCheck, FaCross, FaExternalLinkAlt, FaSync } from "react-icons/fa"
+import { format } from "timeago.js"
 
 const graphQLClient = new GraphQLClient("https://graphql.anilist.co/")
 
@@ -37,10 +39,6 @@ const filterAnilistData = (id: number, anilistData: any[]) => {
   return anilistData.length && (anilistData.filter((entry) => entry.id === id) as any)
 }
 
-function truncate(text, max) {
-  return text.substr(0, max - 1) + (text.length > max ? "…" : "")
-}
-
 const Scrobble = ({ scrobble, data }: props) => {
   const [showAttempt, setShowAttempt] = useState(false)
   const [anilistData, setAnilistData] = useState(null as null | any)
@@ -53,7 +51,30 @@ const Scrobble = ({ scrobble, data }: props) => {
   return anilistData ? (
     <Card img={anilistData.coverImage.extraLarge}>
       <Box overflow={"hidden"} ml={8} w="full">
-        <Flex justify="space-between" h="full">
+        <Flex justify="space-between" h="33%">
+          <Text>EPISODE {scrobble.episode}</Text>
+          <Box w={{ base: "50%", md: "15%" }}>
+            <Progress
+              colorScheme="green"
+              size="sm"
+              value={
+                anilistData.episodes
+                  ? (scrobble.episode / anilistData.episodes) * 100
+                  : scrobble.episode < 13
+                  ? (scrobble.episode / 12) * 100
+                  : scrobble.episode < 25
+                  ? (scrobble.episode / 12) * 100
+                  : scrobble.episode < 53
+                  ? (scrobble.episode / 52) * 100
+                  : 0
+              }
+            />
+            <Text float="right" overflow={"hidden"} whiteSpace={"nowrap"}>
+              {format(scrobble.createdAt)}
+            </Text>
+          </Box>
+        </Flex>
+        <Flex justify="space-between" h="33%">
           <Heading
             fontSize={{ base: "md", md: "xl" }}
             overflow={"hidden"}
@@ -62,10 +83,15 @@ const Scrobble = ({ scrobble, data }: props) => {
           >
             {anilistData.title.romaji}
           </Heading>
+        </Flex>
+        <Box float="right" h="33%">
+          <Button variant="ghost">
+            <FaExternalLinkAlt />
+          </Button>
           <Button m="auto" mr={2} variant="ghost" onClick={toggleShowAttempt}>
             {showAttempt ? <FaCaretUp /> : <FaCaretDown />}
           </Button>
-        </Flex>
+        </Box>
       </Box>
       {/* <Box overflow={"hidden"} ml={8}>
         <Heading fontSize="md" overflow={"hidden"} whiteSpace={"nowrap"} textOverflow={"ellipsis"}>
@@ -123,7 +149,7 @@ function ScrobbleCards() {
       .then((data) => {
         setAnilistData(data.Page.media)
       })
-  }, [])
+  }, [scrobbles])
 
   return (
     <VStack spacing={4} align="stretch">

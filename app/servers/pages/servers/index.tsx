@@ -26,31 +26,29 @@ function ServerCards() {
     <SimpleGrid minChildWidth="320px" spacing={4}>
       <VStack spacing={4} align="stretch">
         {servers?.map((server) => (
-          <Card key={server.id}>
-            <Flex justify="space-between">
-              <Box userSelect="none">
-                <Heading fontSize="xl">{server.name}</Heading>
-                <Text mt={4}>{server.uuid.slice(0, 20) + "..."}</Text>
-              </Box>
-              <Box my="auto">
-                <Link as={BlitzLink} href={"/servers/edit/" + server.id}>
-                  <Button mr={2} variant="ghost">
-                    <FaPen />
-                  </Button>
-                </Link>
-                <Button
-                  onClick={async () => {
-                    await invoke(removeServer, {
-                      id: server.id,
-                    })
-                    refetch()
-                  }}
-                  variant="ghost"
-                >
-                  <FaTrash />
+          <Card key={server.id} justify>
+            <Box userSelect="none">
+              <Heading fontSize="xl">{server.name}</Heading>
+              <Text mt={4}>{server.uuid.slice(0, 20) + "..."}</Text>
+            </Box>
+            <Box my="auto">
+              <Link as={BlitzLink} href={"/servers/edit/" + server.id}>
+                <Button mr={2} variant="ghost">
+                  <FaPen />
                 </Button>
-              </Box>
-            </Flex>
+              </Link>
+              <Button
+                onClick={async () => {
+                  await invoke(removeServer, {
+                    id: server.id,
+                  })
+                  refetch()
+                }}
+                variant="ghost"
+              >
+                <FaTrash />
+              </Button>
+            </Box>
           </Card>
         ))}
         {!servers.length && (

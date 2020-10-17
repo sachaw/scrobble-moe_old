@@ -9,5 +9,9 @@ export default async function getUsersScrobbles(_ = null, ctx: Ctx) {
     include: {
       attempts: true,
     },
+    orderBy: {
+      updatedAt: "desc",
+    },
+    take: 7,
   })
 }

@@ -16,31 +16,29 @@ function AccountCards() {
   return (
     <VStack spacing={4} align="stretch">
       {accounts?.map((account) => (
-        <Card key={account.id}>
-          <Flex justify="space-between">
-            <Box userSelect="none">
-              <Heading fontSize="xl">{account.service}</Heading>
-              <Text mt={4}>{account.userId}</Text>
-            </Box>
-            <Box my="auto">
-              <Link as={BlitzLink} href={`/servers/edit/${account.id}`}>
-                <Button mr={2} variant="ghost">
-                  <FaPen />
-                </Button>
-              </Link>
-              <Button
-                onClick={async () => {
-                  await invoke(removeLinkedAccount, {
-                    id: account.id,
-                  })
-                  refetch()
-                }}
-                variant="ghost"
-              >
-                <FaTrash />
+        <Card key={account.id} justify>
+          <Box userSelect="none">
+            <Heading fontSize="xl">{account.service}</Heading>
+            <Text mt={4}>{account.userId}</Text>
+          </Box>
+          <Box my="auto">
+            <Link as={BlitzLink} href={`/servers/edit/${account.id}`}>
+              <Button mr={2} variant="ghost">
+                <FaPen />
               </Button>
-            </Box>
-          </Flex>
+            </Link>
+            <Button
+              onClick={async () => {
+                await invoke(removeLinkedAccount, {
+                  id: account.id,
+                })
+                refetch()
+              }}
+              variant="ghost"
+            >
+              <FaTrash />
+            </Button>
+          </Box>
         </Card>
       ))}
       {!accounts.length && (
@@ -51,17 +49,19 @@ function AccountCards() {
         </Card>
       )}
       <Card>
-        <Stack spacing={4}>
+        <Stack w="full" spacing={4}>
           <Box m={"auto"}>
             <FaLayerGroup size={70} />
           </Box>
           <Link
+            w="full"
             textDecoration={"none"}
-            w="100%"
             href={`https://anilist.co/api/v2/oauth/authorize?client_id=${process.env.ANILIST_CLIENT_ID}&redirect_uri=${process.env.ANILIST_CLIENT_URL}&response_type=code`}
             target="_blank"
           >
-            <Button variant="ghost">Link AniList</Button>
+            <Button w="full" variant="ghost">
+              Link AniList
+            </Button>
           </Link>
         </Stack>
       </Card>
