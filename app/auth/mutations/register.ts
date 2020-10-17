@@ -9,9 +9,9 @@ export default async function register(input: RegisterInputType, ctx: Ctx) {
 
   const hashedPassword = await hashPassword(password)
 
-  const userExists = db.user.findOne({ where: { username } })
+  const existingUser = await db.user.findOne({ where: { username } })
 
-  if (userExists) throw new Error("User already exists")
+  if (!!existingUser) throw new Error("User already exists")
 
   const user = await db.user.create({
     data: { username, plexUsername, password: hashedPassword, role: "user" },
