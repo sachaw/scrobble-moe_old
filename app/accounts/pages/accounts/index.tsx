@@ -11,7 +11,6 @@ function AccountCards() {
   const [accounts, { refetch }] = useQuery(getUsersAccounts, null, {
     refetchInterval: 5000,
   })
-  console.log(process.env.ANILIST_CLIENT_URL)
 
   return (
     <VStack spacing={4} align="stretch">
