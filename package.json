@@ -41,7 +41,7 @@
     "@prisma/client": "2.8.0",
     "@ssttevee/multipart-parser": "0.1.8",
     "axios": "0.20.0",
-    "blitz": "0.24.2",
+    "blitz": "0.24.3",
     "formidable": "1.2.2",
     "graphql": "15.3.0",
     "graphql-request": "3.2.0",

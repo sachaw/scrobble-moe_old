@@ -1,4 +1,4 @@
-import { Box, Flex, Img, Spinner } from "@chakra-ui/core"
+import { Box, Flex, Img, Spinner, useColorMode } from "@chakra-ui/core"
 
 interface cardProps {
   children: any
@@ -7,6 +7,7 @@ interface cardProps {
 }
 
 export function Card({ children, img, justify = false }: cardProps) {
+  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <Box
       userSelect="none"
@@ -14,7 +15,7 @@ export function Card({ children, img, justify = false }: cardProps) {
       shadow="xl"
       flex="1"
       borderRadius="lg"
-      backgroundColor={"gray.900"}
+      backgroundColor={colorMode === "light" ? "" : "gray.900"}
     >
       <Flex justify={justify ? "space-between" : undefined}>
         {img && <Img h={{ base: 32, md: 40 }} m={-5} borderLeftRadius="lg" src={img} />}
