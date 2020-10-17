@@ -11,7 +11,7 @@ const LinkAnilist: BlitzPage = () => {
   })
 
   return (
-    <Flex justify={"space-around"} h="100vh">
+    <Flex h="100vh">
       <Spinner m={"auto"} size="xl" />
     </Flex>
   )

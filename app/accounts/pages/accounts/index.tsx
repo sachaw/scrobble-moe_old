@@ -8,7 +8,9 @@ import { Suspense } from "react"
 import { FaLayerGroup, FaPen, FaTrash } from "react-icons/fa"
 
 function AccountCards() {
-  const [accounts, { refetch }] = useQuery(getUsersAccounts, null)
+  const [accounts, { refetch }] = useQuery(getUsersAccounts, null, {
+    refetchInterval: 5000,
+  })
   console.log(process.env.ANILIST_CLIENT_URL)
 
   return (
@@ -21,7 +23,7 @@ function AccountCards() {
               <Text mt={4}>{account.userId}</Text>
             </Box>
             <Box my="auto">
-              <Link as={BlitzLink} href={"/servers/edit/" + account.id}>
+              <Link as={BlitzLink} href={`/servers/edit/${account.id}`}>
                 <Button mr={2} variant="ghost">
                   <FaPen />
                 </Button>
@@ -56,13 +58,7 @@ function AccountCards() {
           <Link
             textDecoration={"none"}
             w="100%"
-            href={
-              "https://anilist.co/api/v2/oauth/authorize?client_id=" +
-              process.env.ANILIST_CLIENT_ID +
-              "&redirect_uri=" +
-              process.env.ANILIST_CLIENT_URL +
-              "&response_type=code"
-            }
+            href={`https://anilist.co/api/v2/oauth/authorize?client_id=${process.env.ANILIST_CLIENT_ID}&redirect_uri=${process.env.ANILIST_CLIENT_URL}&response_type=code`}
             target="_blank"
           >
             <Button variant="ghost">Link AniList</Button>

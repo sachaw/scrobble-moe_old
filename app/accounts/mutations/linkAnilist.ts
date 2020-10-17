@@ -7,7 +7,6 @@ interface aniListToken {}
 
 export default async function linkAnilist({ token }, ctx: Ctx) {
   ctx.session.authorize()
-  console.log(token)
 
   Axios.post("https://anilist.co/api/v2/oauth/token", {
     headers: {
@@ -21,8 +20,6 @@ export default async function linkAnilist({ token }, ctx: Ctx) {
     code: token,
   }).then(
     async (response) => {
-      console.log(response.data)
-
       const tokenData = decode(response.data.access_token) as any
       return await db.linkedAccount.create({
         data: {
@@ -38,19 +35,8 @@ export default async function linkAnilist({ token }, ctx: Ctx) {
           },
         },
       })
-      // const tokenData = decode(response.data.access_token)
-      // if (!tokenData?.sub) throw new Error('No token in response')
-
-      // gqlresponse = {
-      //   userId: tokenData.sub,
-      //   accessToken: response.data.access_token,
-      //   refreshToken: response.data.refresh_token,
-      //   accessTokenExpires: dateTime,
-      // }
     },
     (error) => {
-      console.log(error)
-
       throw new Error(error)
     }
   )

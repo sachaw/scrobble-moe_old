@@ -51,7 +51,7 @@ const webhook = async (req: BlitzApiRequest, res: BlitzApiResponse) => {
       return res.status(403).json({ error: "IP address not allowed" })
 
     if (payload.event !== "media.scrobble")
-      return res.status(200).json({ data: "Skipping event: " + payload.event })
+      return res.status(200).json({ data: `Skipping event: ${payload.event}` })
 
     const user = await client.user.findOne({
       where: {

@@ -1,17 +1,24 @@
-import { Box } from "@chakra-ui/core"
+import { Box, Flex, Img, Spinner } from "@chakra-ui/core"
 
-export function Card({ children, ...props }) {
+interface cardProps {
+  children: any
+  img?: string
+}
+
+export function Card({ children, img }: cardProps) {
   return (
     <Box
+      userSelect="none"
       p={5}
       shadow="xl"
-      borderWidth="1px"
-      //   borderColor="rgb(226, 232, 240)"
       flex="1"
       borderRadius="lg"
-      {...props}
+      backgroundColor={"gray.900"}
     >
-      {children}
+      <Flex>
+        {img && <Img h={{ base: 32, md: 40 }} m={-5} borderLeftRadius="lg" src={img} />}
+        {children}
+      </Flex>
     </Box>
   )
 }

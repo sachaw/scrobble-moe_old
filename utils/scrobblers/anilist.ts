@@ -33,7 +33,7 @@ const scrobble = async (
 ) => {
   const graphQLClient = new GraphQLClient("https://graphql.anilist.co/", {
     headers: {
-      authorization: "Bearer " + accessToken,
+      authorization: `Bearer ${accessToken}`,
     },
   })
   const scrobble = await createScrobble(episode, providerMediaId, userId, prisma)

@@ -77,7 +77,7 @@ const AuthHeader = () => {
         <MenuItems mr={0}>
           <Link as={BlitzLink} href="/accounts">
             <Button w="full" variant="outline">
-              Account
+              Accounts
             </Button>
           </Link>
         </MenuItems>
