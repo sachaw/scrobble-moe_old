@@ -5,6 +5,6 @@ const Home: BlitzPage = () => {
   return <Landing />
 }
 
-Home.getLayout = (page) => <Layout title="Home">{page}</Layout>
+Home.getLayout = (page) => <Layout title="Scrobble.moe">{page}</Layout>
 
 export default Home

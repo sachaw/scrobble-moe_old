@@ -14,6 +14,6 @@ const NewServerPage: BlitzPage = () => {
   )
 }
 
-NewServerPage.getLayout = (page) => <Layout title="New Server">{page}</Layout>
+NewServerPage.getLayout = (page) => <Layout title="New Server | Scrobble.moe">{page}</Layout>
 
 export default NewServerPage

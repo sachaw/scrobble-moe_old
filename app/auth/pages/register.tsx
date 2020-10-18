@@ -17,6 +17,6 @@ const RegisterPage: BlitzPage = () => {
   )
 }
 
-RegisterPage.getLayout = (page) => <Layout title="Register">{page}</Layout>
+RegisterPage.getLayout = (page) => <Layout title="Register | Scrobble.moe">{page}</Layout>
 
 export default RegisterPage

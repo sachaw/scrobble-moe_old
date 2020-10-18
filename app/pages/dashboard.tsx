@@ -30,10 +30,11 @@ import { Card } from "app/components/Card"
 import Layout from "app/layouts/Layout"
 import getScrobbleStats from "app/scrobbles/queries/getScrobbleStats"
 import getUsersScrobbles from "app/scrobbles/queries/getUsersScrobbles"
-import { BlitzPage, useQuery } from "blitz"
+import { Link as BlitzLink, BlitzPage, useQuery } from "blitz"
 import { GraphQLClient, gql } from "graphql-request"
 import { Suspense, useEffect, useState } from "react"
 import {
+  FaAngleDoubleRight,
   FaCaretDown,
   FaCaretUp,
   FaCheck,
@@ -72,9 +73,9 @@ const Scrobble = ({ scrobble, data }: props) => {
       <Box overflow={"hidden"} ml={8} w="full">
         <Flex justify="space-between" h="30%">
           <Text>EPISODE {scrobble.episode}</Text>
-          <Box w={{ base: "50%", md: "15%" }}>
+          <Box w="30%">
             <Progress
-              colorScheme="green"
+              colorScheme="blue"
               size="sm"
               value={
                 anilistData.episodes
@@ -104,12 +105,16 @@ const Scrobble = ({ scrobble, data }: props) => {
           </Heading>
         </Flex>
         <Box float="right" h="40%">
-          <Link target="_blank" href={`https://anilist.co/anime/${scrobble.providerMediaId}`}>
-            <Button variant="ghost">
+          <Link
+            mr={2}
+            target="_blank"
+            href={`https://anilist.co/anime/${scrobble.providerMediaId}`}
+          >
+            <Button>
               <FaExternalLinkAlt />
             </Button>
           </Link>
-          <Button m="auto" mr={2} variant="ghost" onClick={toggleShowAttempt}>
+          <Button m="auto" onClick={toggleShowAttempt}>
             {showAttempt ? <FaCaretUp /> : <FaCaretDown />}
           </Button>
         </Box>
@@ -136,7 +141,15 @@ const Scrobble = ({ scrobble, data }: props) => {
 }
 
 function ScrobbleCards() {
-  const [scrobbles, { fetchMore }] = useQuery(getUsersScrobbles, null)
+  const [scrobbles, { fetchMore }] = useQuery(getUsersScrobbles, {
+    include: {
+      attempts: true,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+    take: 7,
+  })
   const [scrobbleStats, { refetch }] = useQuery(getScrobbleStats, null)
   const [anilistData, setAnilistData] = useState([] as any[])
   const [timeUpdated, setTimeUpdated] = useState(new Date())
@@ -175,14 +188,26 @@ function ScrobbleCards() {
     <SimpleGrid minChildWidth="320px" spacing={4}>
       <VStack spacing={4} align="stretch">
         <Card justify>
-          <Heading>Recent Scrobbles</Heading>
-          <Button>
-            View All&nbsp;
-            <FaEllipsisH />
-          </Button>
+          <Heading as="h3" size="lg">
+            Recent Scrobbles
+          </Heading>
+          <Link as={BlitzLink} href="/scrobbles/">
+            <Button my="auto">
+              View All&nbsp;
+              <FaAngleDoubleRight size="16" />
+            </Button>
+          </Link>
         </Card>
         {scrobbles?.map((scrobble) => (
-          <Scrobble key={scrobble.id} data={anilistData} scrobble={scrobble} />
+          <Scrobble
+            key={scrobble.id}
+            data={anilistData}
+            scrobble={
+              scrobble as ScrobbleItem & {
+                attempts: ScrobbleInstance[]
+              }
+            }
+          />
         ))}
         {!scrobbles.length && (
           <Card>
@@ -233,6 +258,6 @@ const Dashboard: BlitzPage = () => {
   )
 }
 
-Dashboard.getLayout = (page) => <Layout title="Dashboard">{page}</Layout>
+Dashboard.getLayout = (page) => <Layout title="Dashboard | Scrobble.moe">{page}</Layout>
 
 export default Dashboard

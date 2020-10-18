@@ -1,17 +1,14 @@
 import { Ctx } from "blitz"
-import db from "db"
+import db, { FindManyScrobbleItemArgs } from "db"
 
-export default async function getUsersScrobbles(_ = null, ctx: Ctx) {
+export default async function getUsersScrobbles(input: FindManyScrobbleItemArgs, ctx: Ctx) {
   ctx.session.authorize()
 
-  return await db.scrobbleItem.findMany({
-    where: { userId: ctx.session!.userId },
-    include: {
-      attempts: true,
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
-    take: 7,
-  })
+  // input.where.userId = ctx.session!.userId
+
+  return await db.scrobbleItem.findMany(
+    Object.assign(input, {
+      where: { userId: ctx.session!.userId },
+    } as FindManyScrobbleItemArgs)
+  )
 }

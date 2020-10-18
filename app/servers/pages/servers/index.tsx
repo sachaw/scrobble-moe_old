@@ -1,12 +1,18 @@
 import {
+  Badge,
   Box,
   Button,
+  ButtonGroup,
+  Code,
   Flex,
   Heading,
+  IconButton,
   Link,
   SimpleGrid,
   Skeleton,
   Stack,
+  Tag,
+  TagRightIcon,
   Text,
   VStack,
 } from "@chakra-ui/core"
@@ -16,7 +22,7 @@ import removeServer from "app/servers/mutations/removeServer"
 import getUsersServers from "app/servers/queries/getUsersServers"
 import { Link as BlitzLink, BlitzPage, invoke, useQuery } from "blitz"
 import { Suspense } from "react"
-import { FaPen, FaTrash } from "react-icons/fa"
+import { FaClipboard, FaPen, FaTrash } from "react-icons/fa"
 import { FaLayerGroup } from "react-icons/fa"
 
 function ServerCards() {
@@ -24,6 +30,16 @@ function ServerCards() {
 
   return (
     <VStack spacing={4} align="stretch">
+      <Card flexDir="column">
+        <Heading>Servers</Heading>
+        <Text>Register your server and add the following webhook to start scrobbling</Text>
+        <ButtonGroup mt={2} size="sm" isAttached>
+          <Button w="full" mr="-px">
+            https://webhook.scrobble.moe/
+          </Button>
+          <IconButton aria-label="Copy" icon={<FaClipboard />} />
+        </ButtonGroup>
+      </Card>
       {servers?.map((server) => (
         <Card key={server.id} justify>
           <Box userSelect="none">
@@ -79,6 +95,6 @@ const Servers: BlitzPage = () => {
   )
 }
 
-Servers.getLayout = (page) => <Layout title="Servers">{page}</Layout>
+Servers.getLayout = (page) => <Layout title="Servers | Scrobble.moe">{page}</Layout>
 
 export default Servers

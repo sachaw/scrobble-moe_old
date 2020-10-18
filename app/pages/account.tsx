@@ -70,6 +70,6 @@ const Account: BlitzPage = () => {
   )
 }
 
-Account.getLayout = (page) => <Layout title="Account">{page}</Layout>
+Account.getLayout = (page) => <Layout title="Account | Scrobble.moe">{page}</Layout>
 
 export default Account

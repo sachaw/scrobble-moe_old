@@ -17,6 +17,6 @@ const LoginPage: BlitzPage = () => {
   )
 }
 
-LoginPage.getLayout = (page) => <Layout title="Log In">{page}</Layout>
+LoginPage.getLayout = (page) => <Layout title="Log In | Scrobble.moe">{page}</Layout>
 
 export default LoginPage

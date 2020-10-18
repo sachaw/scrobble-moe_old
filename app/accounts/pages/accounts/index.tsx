@@ -58,9 +58,7 @@ function AccountCards() {
             href={`https://anilist.co/api/v2/oauth/authorize?client_id=${process.env.ANILIST_CLIENT_ID}&redirect_uri=${process.env.ANILIST_CLIENT_URL}&response_type=code`}
             target="_blank"
           >
-            <Button w="full" variant="ghost">
-              Link AniList
-            </Button>
+            <Button w="full">Link AniList</Button>
           </Link>
         </Stack>
       </Card>
