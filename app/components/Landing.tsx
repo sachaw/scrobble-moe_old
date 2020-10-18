@@ -46,7 +46,7 @@ export default function Landing() {
           </Button>
         </Link>
         <Text fontSize="xs" mt={2} textAlign="center" opacity="0.6">
-          Muse be using the AniList metadata provider found&nbsp;
+          Must be using the AniList metadata provider found&nbsp;
           <Link target="_blank" color="blue.300" href="https://github.com/sachaw/anilist.bundle">
             Here
           </Link>
