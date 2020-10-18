@@ -5,25 +5,43 @@ import {
   Divider,
   Flex,
   Heading,
+  Link,
   List,
   ListIcon,
   ListItem,
   Progress,
+  SimpleGrid,
   Skeleton,
   Spinner,
   Stack,
+  Stat,
+  StatArrow,
+  StatGroup,
+  StatHelpText,
+  StatLabel,
+  StatNumber,
   Text,
   UnorderedList,
   VStack,
+  useColorMode,
 } from "@chakra-ui/core"
 import { ScrobbleInstance, ScrobbleItem } from "@prisma/client"
 import { Card } from "app/components/Card"
 import Layout from "app/layouts/Layout"
+import getScrobbleStats from "app/scrobbles/queries/getScrobbleStats"
 import getUsersScrobbles from "app/scrobbles/queries/getUsersScrobbles"
 import { BlitzPage, useQuery } from "blitz"
 import { GraphQLClient, gql } from "graphql-request"
 import { Suspense, useEffect, useState } from "react"
-import { FaCaretDown, FaCaretUp, FaCheck, FaCross, FaExternalLinkAlt, FaSync } from "react-icons/fa"
+import {
+  FaCaretDown,
+  FaCaretUp,
+  FaCheck,
+  FaCross,
+  FaEllipsisH,
+  FaExternalLinkAlt,
+  FaSync,
+} from "react-icons/fa"
 import { format } from "timeago.js"
 
 const graphQLClient = new GraphQLClient("https://graphql.anilist.co/")
@@ -42,6 +60,7 @@ const filterAnilistData = (id: number, anilistData: any[]) => {
 const Scrobble = ({ scrobble, data }: props) => {
   const [showAttempt, setShowAttempt] = useState(false)
   const [anilistData, setAnilistData] = useState(null as null | any)
+  const { colorMode, toggleColorMode } = useColorMode()
   const toggleShowAttempt = () => setShowAttempt(!showAttempt)
 
   useEffect(() => {
@@ -51,7 +70,7 @@ const Scrobble = ({ scrobble, data }: props) => {
   return anilistData ? (
     <Card img={anilistData.coverImage.extraLarge}>
       <Box overflow={"hidden"} ml={8} w="full">
-        <Flex justify="space-between" h="33%">
+        <Flex justify="space-between" h="30%">
           <Text>EPISODE {scrobble.episode}</Text>
           <Box w={{ base: "50%", md: "15%" }}>
             <Progress
@@ -74,7 +93,7 @@ const Scrobble = ({ scrobble, data }: props) => {
             </Text>
           </Box>
         </Flex>
-        <Flex justify="space-between" h="33%">
+        <Flex justify="space-between" h="30%">
           <Heading
             fontSize={{ base: "md", md: "xl" }}
             overflow={"hidden"}
@@ -84,31 +103,27 @@ const Scrobble = ({ scrobble, data }: props) => {
             {anilistData.title.romaji}
           </Heading>
         </Flex>
-        <Box float="right" h="33%">
-          <Button variant="ghost">
-            <FaExternalLinkAlt />
-          </Button>
+        <Box float="right" h="40%">
+          <Link target="_blank" href={`https://anilist.co/anime/${scrobble.providerMediaId}`}>
+            <Button variant="ghost">
+              <FaExternalLinkAlt />
+            </Button>
+          </Link>
           <Button m="auto" mr={2} variant="ghost" onClick={toggleShowAttempt}>
             {showAttempt ? <FaCaretUp /> : <FaCaretDown />}
           </Button>
         </Box>
       </Box>
-      {/* <Box overflow={"hidden"} ml={8}>
-        <Heading fontSize="md" overflow={"hidden"} whiteSpace={"nowrap"} textOverflow={"ellipsis"}>
-          {anilistData.title.romaji}
-        </Heading>
-        <Text mt={4}>{scrobble.episode}</Text>
-      </Box>
-      <Box float="right" my="auto">
-        <Button mr={2} variant="ghost" onClick={toggleShowAttempt}>
-          {showAttempt ? <FaCaretUp /> : <FaCaretDown />}
-        </Button>
-      </Box> */}
     </Card>
   ) : (
     <Card>
       <Box m={-5} h={{ base: 32, md: 40 }}>
-        <Flex borderLeftRadius="lg" h="full" w={{ base: 24, md: 32 }} backgroundColor={"gray.700"}>
+        <Flex
+          borderLeftRadius="lg"
+          h="full"
+          w={{ base: 24, md: 32 }}
+          backgroundColor={colorMode === "light" ? "" : "gray.700"}
+        >
           <Spinner m={"auto"} size="xl" />
         </Flex>
       </Box>
@@ -121,8 +136,11 @@ const Scrobble = ({ scrobble, data }: props) => {
 }
 
 function ScrobbleCards() {
-  const [scrobbles] = useQuery(getUsersScrobbles, null)
+  const [scrobbles, { fetchMore }] = useQuery(getUsersScrobbles, null)
+  const [scrobbleStats, { refetch }] = useQuery(getScrobbleStats, null)
   const [anilistData, setAnilistData] = useState([] as any[])
+  const [timeUpdated, setTimeUpdated] = useState(new Date())
+  const [isLoading, setIsLoading] = useState(false)
 
   const ANILIST_MEDIA_QUERY = gql`
     query Page($id_in: [Int]!) {
@@ -148,22 +166,62 @@ function ScrobbleCards() {
       })
       .then((data) => {
         setAnilistData(data.Page.media)
+        setTimeUpdated(new Date())
+        setIsLoading(false)
       })
   }, [scrobbles])
 
   return (
-    <VStack spacing={4} align="stretch">
-      {scrobbles?.map((scrobble) => (
-        <Scrobble key={scrobble.id} data={anilistData} scrobble={scrobble} />
-      ))}
-      {!scrobbles.length && (
-        <Card>
-          <Heading m={"auto"} letterSpacing={"-.1rem"} as="h3" size="lg">
-            No Scrobbles.
-          </Heading>
+    <SimpleGrid minChildWidth="320px" spacing={4}>
+      <VStack spacing={4} align="stretch">
+        <Card justify>
+          <Heading>Recent Scrobbles</Heading>
+          <Button>
+            View All&nbsp;
+            <FaEllipsisH />
+          </Button>
         </Card>
-      )}
-    </VStack>
+        {scrobbles?.map((scrobble) => (
+          <Scrobble key={scrobble.id} data={anilistData} scrobble={scrobble} />
+        ))}
+        {!scrobbles.length && (
+          <Card>
+            <Heading m={"auto"} letterSpacing={"-.1rem"} as="h3" size="lg">
+              No Scrobbles.
+            </Heading>
+          </Card>
+        )}
+      </VStack>
+      <VStack spacing={4} height="fit-content" align="stretch">
+        <Card flexDir="column">
+          <Heading>Stats</Heading>
+          <Divider my={4} />
+          <StatGroup>
+            <Stat>
+              <StatLabel>Scrobbles this week</StatLabel>
+              <StatNumber>{scrobbleStats.weekly}</StatNumber>
+            </Stat>
+          </StatGroup>
+          <Flex mt={4} justify="space-between">
+            <Button
+              isLoading={isLoading}
+              loadingText="Refreshing"
+              onClick={() => {
+                setIsLoading(true)
+                fetchMore()
+                refetch()
+              }}
+              w="35%"
+            >
+              <FaSync />
+            </Button>
+            <Text m="auto">
+              Updated <small>{timeUpdated.toISOString().slice(0, -5) + "Z"}</small>
+            </Text>
+          </Flex>
+        </Card>
+      </VStack>
+    </SimpleGrid>
   )
 }
 

@@ -16,7 +16,7 @@ const Layout = ({ title, children }: LayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Container maxW="6xl" mt={{ base: "12", md: "24" }}>
+      <Container maxW="6xl" my="4">
         {children}
       </Container>
     </>

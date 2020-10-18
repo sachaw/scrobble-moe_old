@@ -193,7 +193,7 @@ export function Header() {
       <Suspense
         fallback={
           <Flex justify={"space-between"} width={"full"} align="center">
-            <Heading px={"1rem"} letterSpacing={"-.1rem"} as="h1" size="lg">
+            <Heading userSelect="none" px={"1rem"} letterSpacing={"-.1rem"} as="h1" size="lg">
               Scrobble.moe
             </Heading>
             <Skeleton width={"full"} ml={8}>
