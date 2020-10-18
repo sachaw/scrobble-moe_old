@@ -23,7 +23,9 @@ export default async function linkAnilist({ token }, ctx: Ctx) {
 
         const tokenData = decode(response.data.access_token) as any
         const existingLinkedAccount = await db.linkedAccount.findOne({
-          where: { userId: ctx.session.userId as string },
+          where: {
+            userId: ctx.session.userId as string,
+          },
         })
 
         if (!!existingLinkedAccount) throw new Error("Account already Linked")

@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Heading, Image, Stack } from "@chakra-ui/core"
-import { Link } from "blitz"
+import { Box, Button, Flex, Heading, Image, Link, Stack, Text } from "@chakra-ui/core"
+import { Link as BlitzLink } from "blitz"
 import React from "react"
 import { FaMagic } from "react-icons/fa"
 
@@ -38,12 +38,19 @@ export default function Landing() {
           With automatic scrobbling, keep your AniList in sync all the time, never manually update
           your list again!
         </Heading>
-        <Link href="/register">
+
+        <Link as={BlitzLink} href="/register">
           <Button borderRadius="8px" py="4" px="4" lineHeight="1" size="md">
             Create your account now&nbsp;&nbsp;
             <FaMagic />
           </Button>
         </Link>
+        <Text fontSize="xs" mt={2} textAlign="center" opacity="0.6">
+          Muse be using the AniList metadata provider found&nbsp;
+          <Link target="_blank" color="blue.300" href="https://github.com/sachaw/anilist.bundle">
+            Here
+          </Link>
+        </Text>
       </Stack>
       <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>
         <Image
