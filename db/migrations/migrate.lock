@@ -1,3 +1,4 @@
 # Prisma Migrate lockfile v1
 
 20201017075622-init
+20201018084315-fix-linked-account-unique-constraint

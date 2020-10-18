@@ -1,4 +1,4 @@
-import { Button, Flex, Spinner } from "@chakra-ui/core"
+import { Flex, Spinner } from "@chakra-ui/core"
 import linkAnilistMutation from "app/accounts/mutations/linkAnilist"
 import { BlitzPage, invoke } from "blitz"
 import { useRouterQuery } from "blitz"
@@ -8,9 +8,15 @@ const LinkAnilist: BlitzPage = () => {
   useEffect(() => {
     invoke(linkAnilistMutation, {
       token: query.code as string,
-    }).then(() => {
-      window.close()
     })
+      .then(() => {
+        window.opener.postMessage({ success: true }, "*")
+        window.close()
+      })
+      .catch((error) => {
+        console.log(error)
+        window.opener.postMessage({ success: false, error: error }, "*")
+      })
   }, [])
 
   return (
