@@ -1,10 +1,18 @@
 import "app/app.css"
 
 import { ChakraProvider } from "@chakra-ui/core"
+import * as Sentry from "@sentry/node"
 import { AppProps, ErrorComponent, Router } from "blitz"
 import { useEffect } from "react"
 import { ErrorBoundary, FallbackProps } from "react-error-boundary"
 import { queryCache } from "react-query"
+
+if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+  Sentry.init({
+    enabled: process.env.NODE_ENV === "production",
+    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  })
+}
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
